@@ -12,6 +12,7 @@ function ActivityDashboard(props) {
         <ActivityList activities={props.activities} 
         selectActivity={props.selectActivity}
         deleteActivity={props.deleteActivity}
+        submitting={props.submitting}
          />
       </Grid.Column>
       <Grid.Column width='6'>
@@ -25,7 +26,8 @@ function ActivityDashboard(props) {
         <ActivityForm 
           closeForm={props.closeForm} 
           selectedActivity={props.selectedActivity}
-          createOrEditActivity={props.createOrEditActivity} /> }
+          createOrEditActivity={props.createOrEditActivity}
+          submitting={props.submitting} /> }
       </Grid.Column>
     </Grid>
   )

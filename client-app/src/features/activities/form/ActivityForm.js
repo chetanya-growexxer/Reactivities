@@ -28,10 +28,10 @@ function ActivityForm(props) {
             <Form.Input placeholder='Title' value={activity.title} name='title' onChange={HandleInputChange}/>
             <Form.TextArea placeholder='Description' value={activity.description} name='description' onChange={HandleInputChange}/>
             <Form.Input placeholder='Category' value={activity.category} name='category' onChange={HandleInputChange}/>
-            <Form.Input placeholder='Date' value={activity.date} name='date' onChange={HandleInputChange}/>
+            <Form.Input type='date' placeholder='Date' value={activity.date} name='date' onChange={HandleInputChange}/>
             <Form.Input placeholder='City' value={activity.city} name='city' onChange={HandleInputChange}/>
             <Form.Input placeholder='Venue' value={activity.venue} name='venue' onChange={HandleInputChange}/>
-            <Button floated='right' positive type='submit' content='Submit'/>
+            <Button loading={props.submitting} floated='right' positive type='submit' content='Submit'/>
             <Button onClick={props.closeForm} floated='right' type='button' content='Cancel'/>
         </Form>
     </Segment>
