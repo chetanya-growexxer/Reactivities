@@ -1,17 +1,21 @@
 import React, { useState } from 'react'
 import { Button, Item, Label, Segment } from 'semantic-ui-react'
+import { useStore } from '../../../app/stores/store';
+import { observer } from 'mobx-react-lite';
 
-function ActivityList(props) {
+function ActivityList() {
+    const {activityStore} = useStore();
+    const {deleteActivity,activitiesByDate,loading} = activityStore;
     const[target,setTarget] = useState('')
     function HandleActivityDelete(e,id){
         setTarget(e.currentTarget.name)
-        props.deleteActivity(id)
+        deleteActivity(id)
     }
   return (
     <Segment>
         <Item.Group divided>
             {
-                props.activities.map(activity => (
+                activitiesByDate.map(activity => (
                     <Item key={activity.id}>
                         <Item.Content>
                             <Item.Header as='a'>{activity.title}</Item.Header>
@@ -21,9 +25,9 @@ function ActivityList(props) {
                                 <div>{activity.city},{activity.venue}</div>
                             </Item.Description>
                             <Item.Extra>
-                                <Button onClick={() => props.selectActivity(activity.id)} floated='right' content='View' color='blue'></Button>
+                                <Button onClick={() => activityStore.selectActivity(activity.id)} floated='right' content='View' color='blue'></Button>
                                 <Button name={activity.id} 
-                                loading={props.submitting && target===activity.id}
+                                loading={loading && target===activity.id}
                                  onClick={(e) => HandleActivityDelete(e,activity.id)} 
                                  floated='right' content='Delete' color='red'></Button>
                                 <Label basic content={activity.category}></Label>
@@ -37,4 +41,4 @@ function ActivityList(props) {
   )
 }
 
-export default ActivityList
+export default observer(ActivityList)

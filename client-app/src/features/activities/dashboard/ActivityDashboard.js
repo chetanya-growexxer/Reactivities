@@ -3,34 +3,26 @@ import {Grid} from 'semantic-ui-react'
 import ActivityDetails from '../details/ActivityDetails'
 import ActivityForm from '../form/ActivityForm'
 import ActivityList from './ActivityList'
+import { useStore } from '../../../app/stores/store';
+import { observer } from 'mobx-react-lite';
 
-
-function ActivityDashboard(props) {
+function ActivityDashboard() {
+  const {activityStore} = useStore();
+  const {selectedActivity,editMode} = activityStore;
   return (
     <Grid>
       <Grid.Column width='10'>
-        <ActivityList activities={props.activities} 
-        selectActivity={props.selectActivity}
-        deleteActivity={props.deleteActivity}
-        submitting={props.submitting}
-         />
+        <ActivityList />
       </Grid.Column>
       <Grid.Column width='6'>
-        {props.selectedActivity && props.selectedActivity.title && !props.editMode &&
-        <ActivityDetails
-         activity={props.selectedActivity}
-         cancleActivity={props.cancleActivity}
-         openForm={props.openForm} />}
+        {selectedActivity && selectedActivity.title && !editMode &&
+        <ActivityDetails />}
 
-         {props.editMode && 
-        <ActivityForm 
-          closeForm={props.closeForm} 
-          selectedActivity={props.selectedActivity}
-          createOrEditActivity={props.createOrEditActivity}
-          submitting={props.submitting} /> }
+         {editMode && 
+        <ActivityForm  /> }
       </Grid.Column>
     </Grid>
   )
 }
 
-export default ActivityDashboard
+export default observer(ActivityDashboard)
